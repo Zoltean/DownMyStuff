@@ -64,7 +64,7 @@ class MainWindow(QMainWindow):
         toolbar.addWidget(spacer_widget)
 
         # Додано новий екшен
-        update_key_action = QAction(QIcon(os.path.join(icon_path, 'key.png')), "Оновити ключ", self)
+        update_key_action = QAction(QIcon(os.path.join(icon_path, 'key.webp')), "Оновити ключ", self)
         update_key_action.setStatusTip("Оновити ключ")
         update_key_action.triggered.connect(self.update_key)
         toolbar.addAction(update_key_action)
