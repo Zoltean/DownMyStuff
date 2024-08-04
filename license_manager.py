@@ -7,7 +7,7 @@ import os
 from datetime import datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE_PATH = os.path.join(BASE_DIR, '../db/database.db')
+DATABASE_PATH = os.path.join(BASE_DIR, 'database.db')
 
 def get_device_id():
     """Генерує унікальний DEVICE_ID на основі різних параметрів системи."""
@@ -64,7 +64,7 @@ def get_license(device_id):
 
 def activate_license(device_id, license_key, months):
     """Активує ліцензію та зберігає інформацію в базу даних."""
-    if verify_license_key(device_id, license_key):
+    if verify_license_key(device_id, license_key, months):
         conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
         activation_date = datetime.now()
