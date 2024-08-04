@@ -28,11 +28,13 @@ def initialize_db():
         device_id TEXT NOT NULL,
         license_key TEXT NOT NULL,
         activation_date TEXT NOT NULL,
-        expiration_date TEXT NOT NULL
+        expiration_date TEXT NOT NULL,
+        UNIQUE(device_id, license_key)
     )
     ''')
     conn.commit()
     conn.close()
+
 
 def save_license(device_id, license_key, expiry_date):
     """Збереження ліцензії в базі даних."""
@@ -75,27 +77,37 @@ def verify_license_key(device_id, license_key, months):
     return expected_key == license_key
 
 def activate_license_key(device_id, license_key, months):
-    """Активує новий ліцензійний ключ і зберігає інформацію в базу даних."""
+    """Активує новий ліцензійний ключ і оновлює строк дії в базі даних."""
     if verify_license_key(device_id, license_key, months) is False:
         return False  # Ліцензійний ключ вже використовується або неправильний
 
     activation_date = datetime.now()
-    expiration_date = activation_date + timedelta(days=31 * months)
+    new_expiration_date = activation_date + timedelta(days=31 * months)
 
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
 
-    print(f"Saving License: Device ID: {device_id}, Key: {license_key}, Activation Date: {activation_date.strftime('%Y-%m-%d')}, Expiration Date: {expiration_date.strftime('%Y-%m-%d')}")
+    # Отримання існуючих ліцензій
+    cursor.execute('SELECT expiration_date FROM licenses WHERE device_id = ?', (device_id,))
+    existing_license = cursor.fetchone()
+
+    if existing_license:
+        # Існуюча дата закінчення терміну
+        existing_expiration_date = datetime.strptime(existing_license[0], '%Y-%m-%d')
+        # Розрахунок нової дати закінчення терміну
+        new_expiration_date = max(existing_expiration_date, activation_date) + timedelta(days=31 * months)
+
+    # Збереження нової ліцензії
+    print(f"Saving License: Device ID: {device_id}, Key: {license_key}, Activation Date: {activation_date.strftime('%Y-%m-%d')}, Expiration Date: {new_expiration_date.strftime('%Y-%m-%d')}")
     cursor.execute('''
     INSERT OR REPLACE INTO licenses (device_id, license_key, activation_date, expiration_date)
     VALUES (?, ?, ?, ?)
     ''', (device_id, license_key, activation_date.strftime('%Y-%m-%d'),
-          expiration_date.strftime('%Y-%m-%d')))
+          new_expiration_date.strftime('%Y-%m-%d')))
 
     conn.commit()
     conn.close()
     return True
-
 
 def check_license():
     """Перевіряє стан ліцензії з бази даних."""
