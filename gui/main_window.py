@@ -1,10 +1,17 @@
-from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, QHeaderView, \
-    QSizePolicy, QApplication
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSize, QCoreApplication
-import sys
 import os
+import sqlite3
+import sys
+from datetime import datetime
+from PyQt5.QtGui import QColor
+
+from PyQt5.QtCore import Qt, QSize, QCoreApplication
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, QHeaderView, \
+    QSizePolicy, QApplication, QLabel
+
+from license_manager import get_device_id, DATABASE_PATH
 from .license_dialog import LicenseDialog
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -22,6 +29,10 @@ class MainWindow(QMainWindow):
         self.layout = QVBoxLayout()
         self.main_widget.setLayout(self.layout)
 
+        # Додавання панелі для надпису про строк дії ліцензії
+        self.license_info_label = QLabel("Строк дії ліцензії: Перевірка...")
+        self.layout.addWidget(self.license_info_label)
+
         # Додавання панелі інструментів
         self.create_toolbar()
 
@@ -36,6 +47,9 @@ class MainWindow(QMainWindow):
         header.setSectionResizeMode(QHeaderView.Stretch)
 
         self.layout.addWidget(self.table)
+
+        # Оновлюємо інформацію про ліцензію при старті
+        self.update_license_info()
 
     def create_toolbar(self):
         toolbar = QToolBar("Main Toolbar")
@@ -76,6 +90,33 @@ class MainWindow(QMainWindow):
     def update_key(self):
         dialog = LicenseDialog(self)
         dialog.exec_()
+        self.update_license_info()  # Оновлюємо інформацію про ліцензію після оновлення ключа
+
+    def update_license_info(self):
+        """Оновлює інформацію про строк дії ліцензії."""
+        conn = sqlite3.connect(DATABASE_PATH)
+        cursor = conn.cursor()
+        device_id = get_device_id()
+        cursor.execute('SELECT expiration_date FROM licenses WHERE device_id = ?', (device_id,))
+        row = cursor.fetchone()
+        conn.close()
+
+        today = datetime.now()
+        if row:
+            expiration_date = datetime.strptime(row[0], '%Y-%m-%d')
+            days_remaining = (expiration_date - today).days
+
+            if today < expiration_date:
+                if days_remaining > 10:
+                    color = 'green'
+                else:
+                    color = 'yellow'
+                self.license_info_label.setText(
+                    f'<span style="color:{color}">Строк дії ліцензії: до {expiration_date.strftime("%Y-%m-%d")}</span>')
+            else:
+                self.license_info_label.setText('<span style="color:red">Строк дії ліцензії закінчився</span>')
+        else:
+            self.license_info_label.setText('<span style="color:red">Ліцензія не знайдена</span>')
 
     def center(self):
         # Отримати розміри екрану

@@ -9,11 +9,13 @@ from datetime import datetime, timedelta
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE_PATH = os.path.join(BASE_DIR, 'database.db')
 
+
 def get_device_id():
     """Генерує унікальний DEVICE_ID на основі різних параметрів системи."""
     system_info = f"{platform.node()}-{uuid.getnode()}-{socket.gethostname()}"
     device_id = hashlib.sha256(system_info.encode()).hexdigest()
     return device_id
+
 
 def initialize_db():
     """Ініціалізація бази даних."""
@@ -48,6 +50,7 @@ def save_license(device_id, license_key, expiry_date):
     conn.commit()
     conn.close()
 
+
 def get_license(device_id):
     """Отримання ліцензії з бази даних."""
     conn = sqlite3.connect(DATABASE_PATH)
@@ -56,6 +59,7 @@ def get_license(device_id):
     license = cursor.fetchone()
     conn.close()
     return license
+
 
 def verify_license_key(device_id, license_key, months):
     """Перевіряє ліцензійний ключ на основі DEVICE_ID та терміна ліцензії."""
@@ -75,6 +79,7 @@ def verify_license_key(device_id, license_key, months):
 
     print(f"Expected Key: {expected_key}, Provided Key: {license_key}")
     return expected_key == license_key
+
 
 def activate_license_key(device_id, license_key, months):
     """Активує новий ліцензійний ключ і оновлює строк дії в базі даних."""
@@ -98,7 +103,8 @@ def activate_license_key(device_id, license_key, months):
         new_expiration_date = max(existing_expiration_date, activation_date) + timedelta(days=31 * months)
 
     # Збереження нової ліцензії
-    print(f"Saving License: Device ID: {device_id}, Key: {license_key}, Activation Date: {activation_date.strftime('%Y-%m-%d')}, Expiration Date: {new_expiration_date.strftime('%Y-%m-%d')}")
+    print(
+        f"Saving License: Device ID: {device_id}, Key: {license_key}, Activation Date: {activation_date.strftime('%Y-%m-%d')}, Expiration Date: {new_expiration_date.strftime('%Y-%m-%d')}")
     cursor.execute('''
     INSERT OR REPLACE INTO licenses (device_id, license_key, activation_date, expiration_date)
     VALUES (?, ?, ?, ?)
@@ -108,6 +114,7 @@ def activate_license_key(device_id, license_key, months):
     conn.commit()
     conn.close()
     return True
+
 
 def check_license():
     """Перевіряє стан ліцензії з бази даних."""
@@ -122,6 +129,7 @@ def check_license():
         if datetime.now() < expiration_date:
             return True
     return False
+
 
 # Ініціалізація бази даних при імпорті модуля
 initialize_db()

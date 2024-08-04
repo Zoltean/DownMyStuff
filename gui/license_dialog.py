@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QLabel, QVBoxLayout
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QCoreApplication
 import pyperclip
-from license_manager import get_device_id,activate_license_key, get_license
+from license_manager import get_device_id, activate_license_key, get_license
 from datetime import datetime, timedelta
 
 class LicenseDialog(QDialog):
@@ -36,13 +36,18 @@ class LicenseDialog(QDialog):
         if license_info:
             expiry_date = datetime.strptime(license_info[4], '%Y-%m-%d')
             if datetime.now() < expiry_date:
-                license_status_label = QLabel(f'Ліцензія діє до: {expiry_date.strftime("%Y-%m-%d")}')
-                license_status_label.setStyleSheet('color: green;')
+                text = f'Ліцензія діє до: {expiry_date.strftime("%Y-%m-%d")}'
+                color = 'green'
             else:
-                license_status_label = QLabel(f'Ліцензія прострочена: {expiry_date.strftime("%Y-%м-%д")}')
-                license_status_label.setStyleSheet('color: red;')
+                text = f'Ліцензія прострочена: {expiry_date.strftime("%Y-%m-%d")}'
+                color = 'red'
         else:
-            license_status_label = QLabel('Ліцензія відсутня')
+            text = 'Ліцензія відсутня'
+            color = 'red'
+
+        # Створення QLabel та застосування стилю
+        license_status_label = QLabel(text)
+        license_status_label.setStyleSheet(f'color: {color}; font-size: 24px;')
 
         layout.addWidget(license_status_label)
 
