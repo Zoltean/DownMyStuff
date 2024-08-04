@@ -1,43 +1,72 @@
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget
-from user_management.auth import AuthService
-from user_management.user_service import UserService
+from PyQt5.QtWidgets import QMainWindow, QApplication, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, \
+    QHeaderView
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QSize
+import sys
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
         self.setWindowTitle("Inventory Management System")
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 1024, 768)  # Це можна залишити, але воно буде перекрите showMaximized()
 
+        # Створення головного віджета
+        self.main_widget = QWidget()
+        self.setCentralWidget(self.main_widget)
+
+        # Створення лейаута
         self.layout = QVBoxLayout()
+        self.main_widget.setLayout(self.layout)
 
-        self.product_management_button = QPushButton("Manage Products")
-        self.statistics_button = QPushButton("View Statistics")
-        self.user_management_button = QPushButton("User Management")
+        # Додавання панелі інструментів
+        self.create_toolbar()
 
-        self.layout.addWidget(self.product_management_button)
-        self.layout.addWidget(self.statistics_button)
-        self.layout.addWidget(self.user_management_button)
+        # Додавання таблиці для відображення даних
+        self.table = QTableWidget()
+        self.table.setRowCount(10)
+        self.table.setColumnCount(6)
+        self.table.setHorizontalHeaderLabels(['Замовлення', 'ТТН', 'ПІБ Клієнта', 'Статус', 'Отримано', 'Фіскалізовано'])
 
-        self.product_service = ProductService('products.db')
-        self.user_service = UserService('users.db')
+        # Налаштування автоматического растяження колонок
+        header = self.table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.Stretch)
 
-        self.product_management_button.clicked.connect(self.open_product_management)
-        self.statistics_button.clicked.connect(self.open_statistics)
-        self.user_management_button.clicked.connect(self.open_user_management)
+        self.layout.addWidget(self.table)
 
-        container = QWidget()
-        container.setLayout(self.layout)
-        self.setCentralWidget(container)
+    def create_toolbar(self):
+        toolbar = QToolBar("Main Toolbar")
+        toolbar.setIconSize(QSize(70, 70))
+        toolbar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        toolbar.setMovable(False)
+        toolbar.setFloatable(False)
 
-    def open_product_management(self):
-        self.product_management = ProductManagement(self.product_service)
-        self.product_management.show()
+        self.addToolBar(Qt.TopToolBarArea, toolbar)  # Установка тулбара сверху
 
-    def open_statistics(self):
-        self.statistics_view = StatisticsView(self.product_service)
-        self.statistics_view.show()
+        # Додавання кнопок на панель інструментів
+        add_order_action = QAction(QIcon(r"C:\Users\toxik\Downloads\images.png"), "Додати замовлення", self)
+        add_order_action.setStatusTip("Додати нове замовлення")
+        add_order_action.triggered.connect(self.add_order)
+        toolbar.addAction(add_order_action)
 
-    def open_user_management(self):
-        self.user_management = UserManagement(self.user_service)
-        self.user_management.show()
+        update_status_action = QAction(QIcon(r"C:\Users\toxik\Downloads\free-refresh-icon-3104-thumb.png"),
+                                       "Оновити статус", self)
+        update_status_action.setStatusTip("Оновити статус замовлення")
+        update_status_action.triggered.connect(self.update_status)
+        toolbar.addAction(update_status_action)
+
+    def add_order(self):
+        # Логіка для додавання замовлення
+        print("Додати замовлення")
+
+    def update_status(self):
+        # Логіка для оновлення статусу
+        print("Оновити статус")
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.showMaximized()  # Відкриває вікно на весь екран
+    sys.exit(app.exec_())

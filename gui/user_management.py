@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QPushButton, QLineEdit, QMessageBox
-from user_management.auth import AuthService
-from user_management.user_service import UserService
+from services.user_service import UserService  # Імпорт UserService
+from user_management.auth import AuthService  # Імпорт AuthService
 
 
 class UserManagement(QMainWindow):
