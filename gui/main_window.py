@@ -1,17 +1,17 @@
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, \
-    QHeaderView, QSpacerItem, QSizePolicy, QHBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, QHeaderView, \
+    QSizePolicy, QApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
 import sys
-
+import os
+from .license_dialog import LicenseDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Inventory Management System")
-        self.setGeometry(100, 100, 1024, 768)  # Це можна залишити, але воно буде перекрите showMaximized()
+        self.setGeometry(100, 100, 1024, 768)
 
         # Створення головного віджета
         self.main_widget = QWidget()
@@ -43,11 +43,10 @@ class MainWindow(QMainWindow):
         toolbar.setMovable(False)
         toolbar.setFloatable(False)
 
-        self.addToolBar(Qt.TopToolBarArea, toolbar)  # Установка тулбара сверху
+        self.addToolBar(Qt.TopToolBarArea, toolbar)
 
         icon_path = os.path.join(os.path.dirname(__file__), '..', 'ico')
 
-        # Додавання кнопок на панель інструментів
         add_order_action = QAction(QIcon(os.path.join(icon_path, 'Nova.png')), "Додати замовлення", self)
         add_order_action.setStatusTip("Додати нове замовлення")
         add_order_action.triggered.connect(self.add_order)
@@ -58,32 +57,27 @@ class MainWindow(QMainWindow):
         update_status_action.triggered.connect(self.update_status)
         toolbar.addAction(update_status_action)
 
-        # Додати роздільник для розміщення кнопки справа
         spacer_widget = QWidget()
         spacer_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         toolbar.addWidget(spacer_widget)
 
-        # Додано новий екшен
         update_key_action = QAction(QIcon(os.path.join(icon_path, 'key.webp')), "Оновити ключ", self)
         update_key_action.setStatusTip("Оновити ключ")
         update_key_action.triggered.connect(self.update_key)
         toolbar.addAction(update_key_action)
 
     def add_order(self):
-        # Логіка для додавання замовлення
         print("Додати замовлення")
 
     def update_status(self):
-        # Логіка для оновлення статусу
         print("Оновити статус")
 
     def update_key(self):
-        # Логіка для оновлення ключа
-        print("Оновити ключ")
-
+        dialog = LicenseDialog()
+        dialog.exec_()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.showMaximized()  # Відкриває вікно на весь екран
+    window.showMaximized()
     sys.exit(app.exec_())
