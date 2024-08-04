@@ -10,7 +10,7 @@ def generate_license_key(device_id, months):
 
 def verify_license_key(device_id, license_key, months):
     """Перевіряє ліцензійний ключ на основі DEVICE_ID та терміна ліцензії."""
-    expiration_date = datetime.now() + timedelta(days=30 * months)
+    expiration_date = datetime.now() + timedelta(days=31 * months)
     raw_key = f"{device_id}-{expiration_date.strftime('%Y-%m-%d')}-{months}"
     expected_key = hashlib.sha256(raw_key.encode()).hexdigest()
     return expected_key == license_key

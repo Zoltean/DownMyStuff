@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="products">
+<dataSource name="database">
   <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.41">
     <root id="1">
       <ServerVersion>3.45.1</ServerVersion>
@@ -1589,50 +1589,26 @@
     <argument id="554" parent="190">
       <Position>1</Position>
     </argument>
-    <table id="555" parent="191" name="products"/>
-    <table id="556" parent="191" name="sqlite_master">
+    <table id="555" parent="191" name="sqlite_master">
       <System>1</System>
     </table>
-    <column id="557" parent="555" name="id">
-      <DataType>INTEGER|0s</DataType>
-      <Position>1</Position>
-    </column>
-    <column id="558" parent="555" name="name">
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="559" parent="555" name="quantity">
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="560" parent="555" name="price">
-      <DataType>REAL|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <key id="561" parent="555">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="562" parent="556" name="type">
+    <column id="556" parent="555" name="type">
       <DataType>TEXT|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="563" parent="556" name="name">
+    <column id="557" parent="555" name="name">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="564" parent="556" name="tbl_name">
+    <column id="558" parent="555" name="tbl_name">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="565" parent="556" name="rootpage">
+    <column id="559" parent="555" name="rootpage">
       <DataType>INT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="566" parent="556" name="sql">
+    <column id="560" parent="555" name="sql">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
     </column>
