@@ -3,10 +3,11 @@ from PyQt5.QtGui import QFont
 import pyperclip
 from license_manager import get_device_id, verify_license_key, save_license
 from datetime import datetime, timedelta
+from PyQt5.QtCore import QCoreApplication, Qt, QRect
 
 class LicenseDialog(QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.initUI()
 
     def initUI(self):
@@ -62,3 +63,17 @@ class LicenseDialog(QDialog):
             self.accept()  # Закриває діалогове вікно і повертає результат
         else:
             QMessageBox.critical(self, 'Помилка', 'Невірний ліцензійний ключ!', QMessageBox.Ok)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.center()
+
+    def center(self):
+        # Отримати розміри екрану
+        screen_rect = QCoreApplication.instance().primaryScreen().geometry()
+        # Розміри діалогового вікна
+        dialog_rect = self.geometry()
+        # Вирахувати координати для центрування
+        x = (screen_rect.width() - dialog_rect.width()) / 2
+        y = (screen_rect.height() - dialog_rect.height()) / 2
+        self.move(int(x), int(y))

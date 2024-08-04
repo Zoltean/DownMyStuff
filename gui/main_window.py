@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, QHeaderView, \
     QSizePolicy, QApplication
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, QCoreApplication
 import sys
 import os
 from .license_dialog import LicenseDialog
@@ -12,6 +12,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Inventory Management System")
         self.setGeometry(100, 100, 1024, 768)
+        self.center()  # Центрує основне вікно
 
         # Створення головного віджета
         self.main_widget = QWidget()
@@ -73,11 +74,21 @@ class MainWindow(QMainWindow):
         print("Оновити статус")
 
     def update_key(self):
-        dialog = LicenseDialog()
+        dialog = LicenseDialog(self)
         dialog.exec_()
+
+    def center(self):
+        # Отримати розміри екрану
+        screen_rect = QCoreApplication.instance().primaryScreen().geometry()
+        # Розміри основного вікна
+        window_rect = self.geometry()
+        # Вирахувати координати для центрування
+        x = (screen_rect.width() - window_rect.width()) / 2
+        y = (screen_rect.height() - window_rect.height()) / 2
+        self.move(int(x), int(y))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.showMaximized()
+    window.showMaximized()  # Викликайте showMaximized після центрирування
     sys.exit(app.exec_())
