@@ -1,5 +1,6 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QApplication, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, \
-    QHeaderView
+    QHeaderView, QSpacerItem, QSizePolicy, QHBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QSize
 import sys
@@ -29,7 +30,7 @@ class MainWindow(QMainWindow):
         self.table.setColumnCount(6)
         self.table.setHorizontalHeaderLabels(['Замовлення', 'ТТН', 'ПІБ Клієнта', 'Статус', 'Отримано', 'Фіскалізовано'])
 
-        # Налаштування автоматического растяження колонок
+        # Налаштування автоматичного растяження колонок
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.Stretch)
 
@@ -44,17 +45,29 @@ class MainWindow(QMainWindow):
 
         self.addToolBar(Qt.TopToolBarArea, toolbar)  # Установка тулбара сверху
 
+        icon_path = os.path.join(os.path.dirname(__file__), '..', 'ico')
+
         # Додавання кнопок на панель інструментів
-        add_order_action = QAction(QIcon(r"C:\Users\toxik\Downloads\images.png"), "Додати замовлення", self)
+        add_order_action = QAction(QIcon(os.path.join(icon_path, 'Nova.png')), "Додати замовлення", self)
         add_order_action.setStatusTip("Додати нове замовлення")
         add_order_action.triggered.connect(self.add_order)
         toolbar.addAction(add_order_action)
 
-        update_status_action = QAction(QIcon(r"C:\Users\toxik\Downloads\free-refresh-icon-3104-thumb.png"),
-                                       "Оновити статус", self)
+        update_status_action = QAction(QIcon(os.path.join(icon_path, 'refresh.png')), "Оновити статус", self)
         update_status_action.setStatusTip("Оновити статус замовлення")
         update_status_action.triggered.connect(self.update_status)
         toolbar.addAction(update_status_action)
+
+        # Додати роздільник для розміщення кнопки справа
+        spacer_widget = QWidget()
+        spacer_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        toolbar.addWidget(spacer_widget)
+
+        # Додано новий екшен
+        update_key_action = QAction(QIcon(os.path.join(icon_path, 'key.png')), "Оновити ключ", self)
+        update_key_action.setStatusTip("Оновити ключ")
+        update_key_action.triggered.connect(self.update_key)
+        toolbar.addAction(update_key_action)
 
     def add_order(self):
         # Логіка для додавання замовлення
@@ -63,6 +76,10 @@ class MainWindow(QMainWindow):
     def update_status(self):
         # Логіка для оновлення статусу
         print("Оновити статус")
+
+    def update_key(self):
+        # Логіка для оновлення ключа
+        print("Оновити ключ")
 
 
 if __name__ == "__main__":
