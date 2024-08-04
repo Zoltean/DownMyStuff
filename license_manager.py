@@ -15,9 +15,10 @@ def get_device_id():
     device_id = hashlib.sha256(system_info.encode()).hexdigest()
     return device_id
 
-def verify_license_key(device_id, license_key):
-    """Перевіряє ліцензійний ключ."""
-    raw_key = f"{device_id}-{datetime.now().strftime('%Y-%m')}"
+def verify_license_key(device_id, license_key, months):
+    """Перевіряє ліцензійний ключ на основі DEVICE_ID та терміна ліцензії."""
+    expiration_date = datetime.now() + timedelta(days=30 * months)
+    raw_key = f"{device_id}-{expiration_date.strftime('%Y-%m-%d')}-{months}"
     expected_key = hashlib.sha256(raw_key.encode()).hexdigest()
     return expected_key == license_key
 
