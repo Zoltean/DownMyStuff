@@ -4,10 +4,11 @@
     <list default="true" id="0f3730f4-42c0-4f61-ac06-e26335cd5958" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2af327c6-4915-4b0f-9b61-eacf87a48837.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2af327c6-4915-4b0f-9b61-eacf87a48837.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/license_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/license_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/license_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/license_manager.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
       <workItem from="1722756378452" duration="1533000" />
       <workItem from="1722758692311" duration="12833000" />
       <workItem from="1722783016018" duration="645000" />
-      <workItem from="1722790951512" duration="3348000" />
+      <workItem from="1722790951512" duration="5685000" />
     </task>
     <servers />
   </component>
@@ -85,9 +86,9 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/DownMyStuff$license_dialog.coverage" NAME="license_dialog Coverage Results" MODIFIED="1722794065665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
-    <SUITE FILE_PATH="coverage/DownMyStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1722794472355" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/DownMyStuff$license_manager.coverage" NAME="license_manager Coverage Results" MODIFIED="1722775863897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DownMyStuff$license_dialog.coverage" NAME="license_dialog Coverage Results" MODIFIED="1722794966129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
+    <SUITE FILE_PATH="coverage/DownMyStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1722796774140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DownMyStuff$license_manager.coverage" NAME="license_manager Coverage Results" MODIFIED="1722796113814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DownMyStuff$main_window.coverage" NAME="main_window Coverage Results" MODIFIED="1722793272096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
     <SUITE FILE_PATH="coverage/DownMyStuff$requirements.coverage" NAME="requirements Coverage Results" MODIFIED="1722756836459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

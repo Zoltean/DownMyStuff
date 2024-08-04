@@ -1,10 +1,9 @@
 from PyQt5.QtWidgets import QDialog, QLineEdit, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QMessageBox, QComboBox
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtCore import QCoreApplication
 import pyperclip
-from license_manager import get_device_id, verify_license_key, save_license, get_license
+from license_manager import get_device_id,activate_license_key, get_license
 from datetime import datetime, timedelta
-
 
 class LicenseDialog(QDialog):
     def __init__(self, parent=None):
@@ -101,12 +100,12 @@ class LicenseDialog(QDialog):
         device_id = get_device_id()
         license_key = self.key_input.text()
         months = int(self.months_combo.currentText())
-        if verify_license_key(device_id, license_key, months):
-            save_license(device_id, license_key, datetime.now() + timedelta(days=30 * months))
+
+        if activate_license_key(device_id, license_key, months):
             QMessageBox.information(self, 'Успіх', 'Ліцензійний ключ успішно активовано!', QMessageBox.Ok)
             self.accept()  # Закриває діалогове вікно і повертає результат
         else:
-            QMessageBox.critical(self, 'Помилка', 'Невірний ліцензійний ключ!', QMessageBox.Ok)
+            QMessageBox.critical(self, 'Помилка', 'Ліцензійний ключ вже використовується або невірний!', QMessageBox.Ok)
 
     def showEvent(self, event):
         super().showEvent(event)
