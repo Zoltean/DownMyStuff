@@ -1,5 +1,9 @@
 import hashlib
 from datetime import datetime, timedelta
+from cryptography.fernet import Fernet
+
+SECRET_KEY = Fernet.generate_key()
+print(SECRET_KEY)
 
 def generate_license_key(device_id, months):
     """Генерує ліцензійний ключ на основі DEVICE_ID та терміна ліцензії."""
@@ -16,7 +20,7 @@ def verify_license_key(device_id, license_key, months):
     return expected_key == license_key
 
 device_id = 'a67ebf539c2769eaa094f462c71b38c0b439bf33d11d157a8a225d50696882a6'  # `device_id`, який надав клієнт
-months = 4  # Термін ліцензії в місяцях
+months = 3  # Термін ліцензії в місяцях
 
 # Генерація ключа
 license_key = generate_license_key(device_id, months)

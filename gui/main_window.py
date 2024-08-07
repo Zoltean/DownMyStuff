@@ -3,15 +3,12 @@ import sqlite3
 import sys
 from datetime import datetime
 from PyQt5.QtGui import QColor
-
 from PyQt5.QtCore import Qt, QSize, QCoreApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget, QTableWidget, QHeaderView, \
     QSizePolicy, QApplication, QLabel
-
-from license_manager import get_device_id, DATABASE_PATH
+from license_manager import get_device_id, get_license, DATABASE_PATH
 from .license_dialog import LicenseDialog
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -94,27 +91,27 @@ class MainWindow(QMainWindow):
 
     def update_license_info(self):
         """Оновлює інформацію про строк дії ліцензії."""
-        conn = sqlite3.connect(DATABASE_PATH)
-        cursor = conn.cursor()
         device_id = get_device_id()
-        cursor.execute('SELECT expiration_date FROM licenses WHERE device_id = ?', (device_id,))
-        row = cursor.fetchone()
-        conn.close()
+        license_info = get_license(device_id)
 
         today = datetime.now()
-        if row:
-            expiration_date = datetime.strptime(row[0], '%Y-%m-%d')
-            days_remaining = (expiration_date - today).days
+        if license_info:
+            try:
+                # Припустимо, що expiration_date є частиною `license_info` і він у форматі '%Y-%m-%d'
+                expiration_date = datetime.strptime(license_info[4], '%Y-%m-%d')
+                days_remaining = (expiration_date - today).days
 
-            if today < expiration_date:
-                if days_remaining > 10:
-                    color = 'green'
+                if today < expiration_date:
+                    if days_remaining > 10:
+                        color = 'green'
+                    else:
+                        color = 'yellow'
+                    self.license_info_label.setText(
+                        f'<span style="color:{color}">Строк дії ліцензії: до {expiration_date.strftime("%Y-%m-%d")}</span>')
                 else:
-                    color = 'yellow'
-                self.license_info_label.setText(
-                    f'<span style="color:{color}">Строк дії ліцензії: до {expiration_date.strftime("%Y-%m-%d")}</span>')
-            else:
-                self.license_info_label.setText('<span style="color:red">Строк дії ліцензії закінчився</span>')
+                    self.license_info_label.setText('<span style="color:red">Строк дії ліцензії закінчився</span>')
+            except ValueError:
+                self.license_info_label.setText('<span style="color:red">Помилка формату дати ліцензії</span>')
         else:
             self.license_info_label.setText('<span style="color:red">Ліцензія не знайдена</span>')
 
