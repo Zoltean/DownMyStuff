@@ -59,7 +59,11 @@ class LicenseDialog(QDialog):
 
         months_layout = QHBoxLayout()
         months_layout.setContentsMargins(0, 0, 0, 0)
+
+        # Оновлено стиль для QLabel
         months_label = QLabel('Кількість місяців:')
+        months_label.setStyleSheet('font-size: 18px;')  # Збільшений шрифт для QLabel
+
         self.months_combo = QComboBox()
         self.months_combo.addItems([str(i) for i in range(1, 13)])
         self.months_combo.setFont(font)
@@ -78,11 +82,13 @@ class LicenseDialog(QDialog):
         confirm_button = QPushButton('Підтвердити')
         confirm_button.setFont(button_font)
         confirm_button.setFixedHeight(button_height)
+        confirm_button.setStyleSheet('background-color: green; color: white;')
         confirm_button.clicked.connect(self.confirm_key)
 
         cancel_button = QPushButton('Відхилити')
         cancel_button.setFont(button_font)
         cancel_button.setFixedHeight(button_height)
+        cancel_button.setStyleSheet('background-color: red; color: white;')
         cancel_button.clicked.connect(self.close)
 
         buttons_layout.addWidget(confirm_button)

@@ -9,8 +9,8 @@ from cryptography.fernet import Fernet
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE_PATH = os.path.join(BASE_DIR, 'database.db')
-SECRET_KEY = b'qj1rGqey6foPfSIwIJB-5WDF4uUE_VjEEzA5Mo7MY84='
-cipher_suite = Fernet(SECRET_KEY)
+SY = b'qj1rGqey6foPfSIwIJB-5WDF4uUE_VjEEzA5Mo7MY84='
+cipher_suite = Fernet(SY)
 
 def get_device_id():
     """Генерує унікальний DEVICE_ID на основі різних параметрів системи."""
@@ -61,7 +61,6 @@ def get_license(device_id):
     if license:
         try:
             decrypted_expiry_date = cipher_suite.decrypt(license[4].encode()).decode()
-            print(f"Decrypted Expiry Date: {decrypted_expiry_date}")
             return license[:4] + (decrypted_expiry_date,)
         except Exception as e:
             print(f"Помилка розшифрування: {e}")
@@ -84,7 +83,6 @@ def verify_license_key(device_id, license_key, months):
     raw_key = f"{device_id}-{expiration_date.strftime('%Y-%m-%d')}-{months}"
     expected_key = hashlib.sha256(raw_key.encode()).hexdigest()
 
-    print(f"Expected Key: {expected_key}, Provided Key: {license_key}")
     return expected_key == license_key
 
 def activate_license_key(device_id, license_key, months):
