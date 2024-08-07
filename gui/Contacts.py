@@ -106,7 +106,12 @@ class ContactsDialog(QDialog):
                     WHERE sename LIKE ? OR name LIKE ? OR f_name LIKE ? OR phone_number LIKE ? OR address LIKE ? OR address_NP LIKE ? OR email LIKE ?
                 """
                 search_query = f'%{search_query}%'
-                df = pd.read_sql(query, connection, params=(search_query, search_query, search_query, search_query, search_query, search_query, search_query))
+                df = pd.read_sql(query, connection, params=(
+                search_query, search_query, search_query, search_query, search_query, search_query, search_query))
+
+                # Замінити None на порожній рядок
+                df = df.fillna('')
+
                 self.table.setRowCount(len(df))  # Встановити кількість рядків у таблиці
 
                 # Заповнити таблицю
@@ -175,14 +180,7 @@ class ContactsDialog(QDialog):
 
     def validate_excel_data(self, df):
         """Перевіряє дані в DataFrame на наявність потенційно небезпечних значень."""
-        # Регулярний вираз для перевірки небезпечних символів
-        pattern = re.compile(r"[\'\--;]")
-
-        # Перевірити кожне значення у всіх стовпцях
-        for column in df.columns:
-            for value in df[column]:
-                if isinstance(value, str) and pattern.search(value):
-                    return False
+        # Видалено перевірку на небезпечні символи
         return True
 
     def open_edit_contact_dialog(self, row, column):

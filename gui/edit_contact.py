@@ -37,7 +37,7 @@ class EditContactDialog(QDialog):
         # Кнопки для збереження, видалення та скасування
         self.save_button = QPushButton("Редагувати")
         self.delete_button = QPushButton("Видалити контакт повністю")
-        self.cancel_button = QPushButton("Скасувати")
+        self.cancel_button = QPushButton("Скасувати редагування")
         self.save_button.clicked.connect(self.save_contact)
         self.delete_button.clicked.connect(self.confirm_delete_contact)
         self.cancel_button.clicked.connect(self.reject)
