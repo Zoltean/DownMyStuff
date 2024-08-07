@@ -15,8 +15,8 @@ class LicenseDialog(QDialog):
         self.setGeometry(100, 100, 400, 250)
 
         layout = QVBoxLayout()
-        layout.setContentsMargins(10, 10, 10, 10)  # Зменшити відступи між краями діалогу і макетом
-        layout.setSpacing(2)  # Зменшити вертикальні відступи між елементами
+        layout.setContentsMargins(10, 10, 10, 10)
+        layout.setSpacing(2)
 
         device_id = get_device_id()
         device_id_label = QLabel(f'DEVICE_ID: {device_id}')
@@ -24,14 +24,12 @@ class LicenseDialog(QDialog):
         copy_button = QPushButton('Скопіювати DEVICE_ID')
         copy_button.clicked.connect(lambda: self.copy_device_id(device_id))
 
-        # Групування device_id_label і copy_button на одному рівні
         device_layout = QHBoxLayout()
-        device_layout.setContentsMargins(0, 0, 0, 0)  # Зменшити відступи між елементами в групі
+        device_layout.setContentsMargins(0, 0, 0, 0)
         device_layout.addWidget(device_id_label)
         device_layout.addWidget(copy_button)
         layout.addLayout(device_layout)
 
-        # Отримати інформацію про існуючу ліцензію
         license_info = get_license(device_id)
         if license_info:
             expiry_date = datetime.strptime(license_info[4], '%Y-%m-%d')
@@ -45,40 +43,37 @@ class LicenseDialog(QDialog):
             text = 'Ліцензія відсутня'
             color = 'red'
 
-        # Створення QLabel та застосування стилю
         license_status_label = QLabel(text)
         license_status_label.setStyleSheet(f'color: {color}; font-size: 24px;')
 
         layout.addWidget(license_status_label)
 
         font = QFont()
-        font.setPointSize(14)  # Зменшує розмір шрифту для поля вводу та випадаючого списку
+        font.setPointSize(14)
 
         self.key_input = QLineEdit()
         self.key_input.setPlaceholderText('Введіть ліцензійний ключ')
         self.key_input.setFont(font)
-        self.key_input.setFixedHeight(30)  # Встановлює фіксовану висоту
+        self.key_input.setFixedHeight(30)
         layout.addWidget(self.key_input)
 
-        # Додавання випадаючого списку
         months_layout = QHBoxLayout()
-        months_layout.setContentsMargins(0, 0, 0, 0)  # Зменшити відступи між елементами в групі
+        months_layout.setContentsMargins(0, 0, 0, 0)
         months_label = QLabel('Кількість місяців:')
         self.months_combo = QComboBox()
         self.months_combo.addItems([str(i) for i in range(1, 13)])
-        self.months_combo.setFont(font)  # Налаштування шрифту для випадаючого списку
-        self.months_combo.setFixedHeight(30)  # Встановлює фіксовану висоту
+        self.months_combo.setFont(font)
+        self.months_combo.setFixedHeight(30)
 
         months_layout.addWidget(months_label)
         months_layout.addWidget(self.months_combo)
         layout.addLayout(months_layout)
 
-        # Створення горизонтального макету для кнопок
         buttons_layout = QHBoxLayout()
-        buttons_layout.setContentsMargins(0, 0, 0, 0)  # Зменшити відступи між елементами в групі
+        buttons_layout.setContentsMargins(0, 0, 0, 0)
         button_font = QFont()
-        button_font.setPointSize(14)  # Розмір шрифту для кнопок
-        button_height = 30  # Висота кнопок
+        button_font.setPointSize(14)
+        button_height = 30
 
         confirm_button = QPushButton('Підтвердити')
         confirm_button.setFont(button_font)
@@ -91,7 +86,7 @@ class LicenseDialog(QDialog):
         cancel_button.clicked.connect(self.close)
 
         buttons_layout.addWidget(confirm_button)
-        buttons_layout.addStretch()  # Додає простір між кнопками
+        buttons_layout.addStretch()
         buttons_layout.addWidget(cancel_button)
 
         layout.addLayout(buttons_layout)
@@ -108,7 +103,7 @@ class LicenseDialog(QDialog):
 
         if activate_license_key(device_id, license_key, months):
             QMessageBox.information(self, 'Успіх', 'Ліцензійний ключ успішно активовано!', QMessageBox.Ok)
-            self.accept()  # Закриває діалогове вікно і повертає результат
+            self.accept()
         else:
             QMessageBox.critical(self, 'Помилка', 'Ліцензійний ключ вже використовується або невірний!', QMessageBox.Ok)
 
@@ -117,11 +112,8 @@ class LicenseDialog(QDialog):
         self.center()
 
     def center(self):
-        # Отримати розміри екрану
         screen_rect = QCoreApplication.instance().primaryScreen().geometry()
-        # Розміри діалогового вікна
         dialog_rect = self.geometry()
-        # Вирахувати координати для центрування
         x = (screen_rect.width() - dialog_rect.width()) / 2
         y = (screen_rect.height() - dialog_rect.height()) / 2
         self.move(int(x), int(y))

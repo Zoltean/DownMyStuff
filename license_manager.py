@@ -9,7 +9,7 @@ from cryptography.fernet import Fernet
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE_PATH = os.path.join(BASE_DIR, 'database.db')
-SECRET_KEY = b'qj1rGqey6foPfSIwIJB-5WDF4uUE_VjEEzA5Mo7MY84='  # Заміни на свій секретний ключ
+SECRET_KEY = b'qj1rGqey6foPfSIwIJB-5WDF4uUE_VjEEzA5Mo7MY84='
 cipher_suite = Fernet(SECRET_KEY)
 
 def get_device_id():
@@ -61,7 +61,7 @@ def get_license(device_id):
     if license:
         try:
             decrypted_expiry_date = cipher_suite.decrypt(license[4].encode()).decode()
-            print(f"Decrypted Expiry Date: {decrypted_expiry_date}")  # Додано для відлагодження
+            print(f"Decrypted Expiry Date: {decrypted_expiry_date}")
             return license[:4] + (decrypted_expiry_date,)
         except Exception as e:
             print(f"Помилка розшифрування: {e}")

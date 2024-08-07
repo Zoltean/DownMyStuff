@@ -1617,27 +1617,38 @@
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <key id="562" parent="555">
+    <index id="562" parent="555" name="sqlite_autoindex_licenses_1">
+      <ColNames>device_id
+license_key</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="563" parent="555">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="563" parent="556" name="type">
+    <key id="564" parent="555">
+      <ColNames>device_id
+license_key</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_licenses_1</UnderlyingIndexName>
+    </key>
+    <column id="565" parent="556" name="type">
       <DataType>TEXT|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="564" parent="556" name="name">
+    <column id="566" parent="556" name="name">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="565" parent="556" name="tbl_name">
+    <column id="567" parent="556" name="tbl_name">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="566" parent="556" name="rootpage">
+    <column id="568" parent="556" name="rootpage">
       <DataType>INT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="567" parent="556" name="sql">
+    <column id="569" parent="556" name="sql">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
     </column>
