@@ -7,7 +7,8 @@ from PyQt5.QtWidgets import QMainWindow, QToolBar, QAction, QVBoxLayout, QWidget
     QSizePolicy, QApplication, QLabel
 from license_manager import get_device_id, get_license
 from .license_dialog import LicenseDialog
-from .Contacts import ContactsDialog
+from .contacts import ContactsDialog
+from .goods import GoodsDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -116,8 +117,8 @@ class MainWindow(QMainWindow):
         dialog.exec_()  # Відобразіть діалогове вікно
 
     def view_products(self):
-        print("Переглянути товари")
-        # Додайте код для відображення товарів
+        dialog = GoodsDialog(self)
+        dialog.exec_()
 
     def view_reports(self):
         print("Переглянути звіти")
