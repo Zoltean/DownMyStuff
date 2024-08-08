@@ -54,6 +54,18 @@ class EditGoodsDialog(QDialog):
 
         self.load_data()
 
+        # Центрування діалогового вікна
+        if parent:
+            self.center_on_parent(parent)
+
+    def center_on_parent(self, parent):
+        """Центрує діалогове вікно відносно батьківського вікна."""
+        parent_rect = parent.geometry()
+        dialog_rect = self.geometry()
+        x = parent_rect.left() + (parent_rect.width() - dialog_rect.width()) / 2
+        y = parent_rect.top() + (parent_rect.height() - dialog_rect.height()) / 2
+        self.move(int(x), int(y))
+
     def load_data(self):
         try:
             db_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'database.db')
@@ -93,7 +105,7 @@ class EditGoodsDialog(QDialog):
             return None, None, None, None, None, None
 
         try:
-            tax = int(tax) if tax else 0  # Convert tax to int
+            tax = int(tax) if tax else 0  # Перетворення tax в int
             price = float(price)
             quantity = int(quantity)
         except ValueError:
@@ -140,3 +152,4 @@ class EditGoodsDialog(QDialog):
             self.accept()
         except sqlite3.DatabaseError as e:
             QMessageBox.critical(self, "Помилка", f"Помилка при видаленні товару: {e}")
+ 
