@@ -2,13 +2,14 @@ import sys
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFormLayout, QApplication, QSizePolicy
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import Qt, QRect
+from .CheckboxSettings import CheckboxSettingsDialog  # Імпортуємо новий клас
 
 
 class SettingsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Налаштування")
-        self.setGeometry(0, 0, 150, 150)  # Початкові розміри вікна
+        self.setGeometry(0, 0, 350, 150)  # Початкові розміри вікна
 
         # Створення компонентів інтерфейсу
         layout = QVBoxLayout()
@@ -46,7 +47,11 @@ class SettingsDialog(QDialog):
         print("Нова Пошта натиснуто")
 
     def handle_checkbox(self):
-        print("Checkbox натиснуто")
+        # Закриття поточного вікна
+        self.accept()
+        # Відкриття нового вікна
+        dialog = CheckboxSettingsDialog(parent=self.parent())
+        dialog.exec_()
 
     def center_on_parent(self, parent):
         """Центрує вікно на батьківському вікні."""

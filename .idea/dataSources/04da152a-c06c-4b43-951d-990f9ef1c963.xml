@@ -1589,153 +1589,179 @@
     <argument id="554" parent="190">
       <Position>1</Position>
     </argument>
-    <table id="555" parent="191" name="contacts"/>
-    <table id="556" parent="191" name="goods"/>
-    <table id="557" parent="191" name="licenses"/>
-    <table id="558" parent="191" name="sqlite_master">
+    <table id="555" parent="191" name="checkbox_settings"/>
+    <table id="556" parent="191" name="contacts"/>
+    <table id="557" parent="191" name="goods"/>
+    <table id="558" parent="191" name="licenses"/>
+    <table id="559" parent="191" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="559" parent="191" name="sqlite_sequence">
+    <table id="560" parent="191" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <column id="560" parent="555" name="id">
+    <column id="561" parent="555" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DataType>INTEGER|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="561" parent="555" name="sename">
+    <column id="562" parent="555" name="license_key">
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="562" parent="555" name="name">
+    <column id="563" parent="555" name="cashier_login">
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="563" parent="555" name="f_name">
+    <column id="564" parent="555" name="cashier_password">
       <DataType>TEXT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="564" parent="555" name="phone_number">
+    <column id="565" parent="555" name="access_token">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="565" parent="555" name="address">
-      <DataType>TEXT|0s</DataType>
-      <Position>6</Position>
-    </column>
-    <column id="566" parent="555" name="address_NP">
-      <DataType>TEXT|0s</DataType>
-      <Position>7</Position>
-    </column>
-    <column id="567" parent="555" name="email">
-      <DataType>TEXT|0s</DataType>
-      <Position>8</Position>
-    </column>
-    <key id="568" parent="555">
+    <key id="566" parent="555">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="569" parent="556" name="id">
+    <column id="567" parent="556" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DataType>INTEGER|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="570" parent="556" name="name">
+    <column id="568" parent="556" name="sename">
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="571" parent="556" name="group_name">
+    <column id="569" parent="556" name="name">
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="570" parent="556" name="f_name">
+      <DataType>TEXT|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="571" parent="556" name="phone_number">
+      <DataType>TEXT|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <column id="572" parent="556" name="address">
+      <DataType>TEXT|0s</DataType>
+      <Position>6</Position>
+    </column>
+    <column id="573" parent="556" name="address_NP">
+      <DataType>TEXT|0s</DataType>
+      <Position>7</Position>
+    </column>
+    <column id="574" parent="556" name="email">
+      <DataType>TEXT|0s</DataType>
+      <Position>8</Position>
+    </column>
+    <key id="575" parent="556">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="576" parent="557" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DataType>INTEGER|0s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="577" parent="557" name="name">
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="578" parent="557" name="group_name">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="572" parent="556" name="tax">
+    <column id="579" parent="557" name="tax">
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="573" parent="556" name="UKTZED">
+    <column id="580" parent="557" name="UKTZED">
       <DataType>INTEGER|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="574" parent="556" name="price">
+    <column id="581" parent="557" name="price">
       <DataType>REAL|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="575" parent="556" name="quantity">
+    <column id="582" parent="557" name="quantity">
       <DataType>INTEGER|0s</DataType>
       <Position>7</Position>
     </column>
-    <key id="576" parent="556">
+    <key id="583" parent="557">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="577" parent="557" name="id">
+    <column id="584" parent="558" name="id">
       <DataType>INTEGER|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="578" parent="557" name="device_id">
+    <column id="585" parent="558" name="device_id">
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="579" parent="557" name="license_key">
+    <column id="586" parent="558" name="license_key">
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="580" parent="557" name="activation_date">
+    <column id="587" parent="558" name="activation_date">
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="581" parent="557" name="expiration_date">
+    <column id="588" parent="558" name="expiration_date">
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="582" parent="557" name="sqlite_autoindex_licenses_1">
+    <index id="589" parent="558" name="sqlite_autoindex_licenses_1">
       <ColNames>device_id
 license_key</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="583" parent="557">
+    <key id="590" parent="558">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="584" parent="557">
+    <key id="591" parent="558">
       <ColNames>device_id
 license_key</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_licenses_1</UnderlyingIndexName>
     </key>
-    <column id="585" parent="558" name="type">
+    <column id="592" parent="559" name="type">
       <DataType>TEXT|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="586" parent="558" name="name">
+    <column id="593" parent="559" name="name">
       <DataType>TEXT|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="587" parent="558" name="tbl_name">
+    <column id="594" parent="559" name="tbl_name">
       <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="588" parent="558" name="rootpage">
+    <column id="595" parent="559" name="rootpage">
       <DataType>INT|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="589" parent="558" name="sql">
+    <column id="596" parent="559" name="sql">
       <DataType>TEXT|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="590" parent="559" name="name">
+    <column id="597" parent="560" name="name">
       <Position>1</Position>
     </column>
-    <column id="591" parent="559" name="seq">
+    <column id="598" parent="560" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

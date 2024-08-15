@@ -1,0 +1,2 @@
+2024-08-15 13:49:23,512 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 13:49:23,686 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/organization/receipt-config HTTP/11" 200 None
