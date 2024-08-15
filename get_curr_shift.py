@@ -3,8 +3,13 @@ import json
 import requests
 
 def get_shift_info(api_url, access_token, info_text):
-    """Отримання інформації про зміну і оновлення текстового блоку."""
-    endpoint = f"{api_url}/api/v1/cashier/shift"
+    """Отримання інформації про останню зміну і оновлення текстового блоку."""
+    endpoint = f"{api_url}/api/v1/shifts"
+    params = {
+        'statuses[]': ['OPENED', 'CLOSED'],  # Включити статуси, які можуть бути актуальними
+        'limit': 1,  # Лише одна остання зміна
+        'desc': True  # Сортування у зворотному порядку
+    }
 
     headers = {
         'accept': 'application/json',
@@ -16,9 +21,10 @@ def get_shift_info(api_url, access_token, info_text):
     # Логування пейлоаду запиту
     logging.debug(f"Запит до API: {endpoint}")
     logging.debug(f"Заголовки запиту: {headers}")
+    logging.debug(f"Параметри запиту: {params}")
 
     try:
-        response = requests.get(endpoint, headers=headers)
+        response = requests.get(endpoint, headers=headers, params=params)
         response.raise_for_status()  # Перевірка наявності помилок HTTP
 
         # Логування статусу, заголовків та тексту відповіді
@@ -42,14 +48,23 @@ def get_shift_info(api_url, access_token, info_text):
             return
 
         if not isinstance(shift_data, dict):
-            info_text.setHtml("<font color='red'>Наразі інформації про відкриту зміну немає.</font>")
+            info_text.setHtml("<font color='red'>Наразі інформації про зміни немає.</font>")
             logging.error("Отримані дані не є правильним JSON-об'єктом")
             return
 
-        status = shift_data.get('status', 'UNKNOWN')
+        results = shift_data.get('results', [])
+        if not results:
+            info_text.setHtml("<font color='red'>Наразі інформації про зміни немає.</font>")
+            logging.error("Немає результатів у відповіді")
+            return
+
+        # Отримання останньої зміни
+        last_shift = results[0]
+
+        status = last_shift.get('status', 'UNKNOWN')
         status_color = {
-            'OPENED': 'green',
-            'CLOSED': 'yellow'
+            'OPENED': '#00FF00',
+            'CLOSED': '#008000'
         }.get(status, 'red')
 
         status_text = {
@@ -58,12 +73,12 @@ def get_shift_info(api_url, access_token, info_text):
         }.get(status, 'ПОМИЛКА - зверніться в підтримку Чекбокс')
 
         info_text.setHtml(f"<b>Статус:</b> <font color='{status_color}'><b>{status_text}</b></font><br>"
-                           f"<b>ID:</b> {shift_data.get('id', 'N/A')}<br>"
-                           f"<b>Serial:</b> {shift_data.get('serial', 'N/A')}<br>"
-                           f"<b>Opened At:</b> {shift_data.get('opened_at', 'N/A')}<br>"
-                           f"<b>Closed At:</b> {shift_data.get('closed_at', 'N/A')}<br>"
-                           f"<b>Emergency Close:</b> {shift_data.get('emergency_close', 'N/A')}<br>"
-                           f"<b>Emergency Close Details:</b> {shift_data.get('emergency_close_details', 'N/A')}<br>")
+                           f"<b>ID:</b> {last_shift.get('id', 'N/A')}<br>"
+                           f"<b>Serial:</b> {last_shift.get('serial', 'N/A')}<br>"
+                           f"<b>Відкриття:</b> {last_shift.get('opened_at', 'N/A')}<br>"
+                           f"<b>Закриття:</b> {last_shift.get('closed_at', 'N/A')}<br>"
+                           f"<b>Аварійне закриття:</b> {last_shift.get('emergency_close', 'N/A')}<br>"
+                           f"<b>Деталі аварійного закриття:</b> {last_shift.get('emergency_close_details', 'N/A')}<br>")
 
     except requests.RequestException as e:
         logging.error(f"Не вдалося здійснити запит: {e}")
