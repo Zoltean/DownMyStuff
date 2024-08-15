@@ -16,7 +16,7 @@ class ContactsDialog(QDialog):
 
         # Ініціалізація IEContacts перед іншими компонентами
         self.ie_contacts = IEContacts(self)
-
+        self.init_db()
         self.add_button = QPushButton("Додати")
         self.reset_search_button = QPushButton("Зкинути фільтр")
         self.import_button = QPushButton("Імпорт з Excel")
@@ -70,6 +70,28 @@ class ContactsDialog(QDialog):
             qr = parent.frameGeometry()
             cp = qr.center()
             self.move(cp - self.rect().center())
+
+    def init_db(self):
+        db_path = self.ie_contacts.get_db_path()
+        try:
+            with sqlite3.connect(db_path) as connection:
+                cursor = connection.cursor()
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS contacts (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        sename TEXT NOT NULL,
+                        name TEXT NOT NULL,
+                        f_name TEXT,
+                        phone_number TEXT,
+                        address TEXT,
+                        address_NP TEXT,
+                        email TEXT
+                    )
+                """)
+                connection.commit()
+                print("Таблиця 'contacts' успішно створена або вже існує.")
+        except sqlite3.DatabaseError as e:
+            QMessageBox.critical(self, "Помилка", f"Помилка при створенні таблиці: {e}")
 
     def search_contact(self):
         search_query = self.search_input.text().strip()

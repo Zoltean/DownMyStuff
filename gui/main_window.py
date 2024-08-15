@@ -1,3 +1,4 @@
+# main_window.py
 import os
 import sys
 from datetime import datetime
@@ -9,6 +10,7 @@ from license_manager import get_device_id, get_license
 from .license_dialog import LicenseDialog
 from .contacts import ContactsDialog
 from .goods import GoodsDialog
+from .settings import SettingsDialog  # Додаємо імпорт нового діалогового вікна
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -125,8 +127,8 @@ class MainWindow(QMainWindow):
         # Додайте код для відображення звітів
 
     def open_settings(self):
-        print("Відкрити налаштування")
-        # Додайте код для відкриття налаштувань
+        dialog = SettingsDialog(self)
+        dialog.exec_()
 
     def update_license_info(self):
         """Оновлює інформацію про строк дії ліцензії та блокує або розблокує кнопки."""

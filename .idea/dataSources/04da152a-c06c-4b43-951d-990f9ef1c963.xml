@@ -1615,12 +1615,10 @@
     </column>
     <column id="563" parent="555" name="f_name">
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="564" parent="555" name="phone_number">
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
     <column id="565" parent="555" name="address">
@@ -1654,15 +1652,17 @@
       <Position>3</Position>
     </column>
     <column id="572" parent="556" name="tax">
-      <DataType>REAL|0s</DataType>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="573" parent="556" name="UKTZED">
-      <DataType>TEXT|0s</DataType>
+      <DataType>INTEGER|0s</DataType>
       <Position>5</Position>
     </column>
     <column id="574" parent="556" name="price">
       <DataType>REAL|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <column id="575" parent="556" name="quantity">
