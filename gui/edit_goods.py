@@ -152,4 +152,3 @@ class EditGoodsDialog(QDialog):
             self.accept()
         except sqlite3.DatabaseError as e:
             QMessageBox.critical(self, "Помилка", f"Помилка при видаленні товару: {e}")
- 

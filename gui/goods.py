@@ -16,7 +16,6 @@ class GoodsDialog(QDialog):
         self.setGeometry(200, 200, 900, 600)
 
         self.add_button = QPushButton("Додати")
-        self.search_button = QPushButton("Шукати")
         self.reset_search_button = QPushButton("Зкинути фільтр")
         self.import_button = QPushButton("Імпорт з Excel")
         self.export_button = QPushButton("Експорт в Excel")
@@ -25,11 +24,13 @@ class GoodsDialog(QDialog):
         self.search_input.setPlaceholderText("Введіть текст для пошуку")
 
         font = QFont("Arial", 10)
-        for button in [self.add_button, self.search_button, self.reset_search_button, self.import_button,
-                       self.export_button]:
+        for button in [self.add_button, self.reset_search_button, self.import_button, self.export_button]:
             button.setFont(font)
             button.setFixedSize(110, 30)
             button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        # Підписка на сигнал textChanged
+        self.search_input.textChanged.connect(self.search_goods)
 
         button_layout = QVBoxLayout()
         button_layout.addWidget(self.add_button)
@@ -39,7 +40,6 @@ class GoodsDialog(QDialog):
 
         search_layout = QHBoxLayout()
         search_layout.addWidget(self.search_input)
-        search_layout.addWidget(self.search_button)
         search_layout.addWidget(self.reset_search_button)
 
         right_layout = QVBoxLayout()
@@ -66,7 +66,6 @@ class GoodsDialog(QDialog):
         self.setLayout(main_layout)
 
         self.add_button.clicked.connect(self.open_add_goods_dialog)
-        self.search_button.clicked.connect(self.search_goods)
         self.reset_search_button.clicked.connect(self.reset_search)
         self.import_button.clicked.connect(self.import_goods)
         self.export_button.clicked.connect(self.export_goods)
