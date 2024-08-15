@@ -3,7 +3,7 @@ import logging
 import os
 import datetime
 from PyQt5.QtWidgets import QApplication
-from gui.main_window import MainWindow
+from main_window import MainWindow
 
 
 def setup_logging():

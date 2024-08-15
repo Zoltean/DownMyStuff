@@ -1,2 +1,0 @@
-2024-08-15 14:03:00,814 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
-2024-08-15 14:03:01,002 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
