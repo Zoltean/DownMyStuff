@@ -1,0 +1,12 @@
+2024-08-15 16:59:12,227 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:59:12,397 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
+2024-08-15 16:59:12,398 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:59:12,620 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/tax HTTP/11" 200 None
+2024-08-15 16:59:23,409 - DEBUG - CheckboxSettings.py:101 - Запит до API: https://api.checkbox.ua/api/v1/cashier/shift
+2024-08-15 16:59:23,409 - DEBUG - CheckboxSettings.py:102 - Заголовки запиту: {'accept': 'application/json', 'X-Client-Name': 'Test-Client-Name', 'X-Client-Version': 'Test-Client-Version', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiQVBJIiwianRpIjoiMDU2NWM5YWMtZWEwOS00ZjEyLTkwNTMtNGI4NGFlNDRkZGQ1Iiwic3ViIjoiYjliMjhlNzQtNDA5NC00YTRlLWEyNzAtMjE0ZTdkMWYwN2UwIiwibmJmIjoxNzIzNzI5NTU2LCJpYXQiOjE3MjM3Mjk1NTZ9.LKwv_jvJ7_Kigr23VlDcQxzDm_j2-yrX76rM5dBvQN8'}
+2024-08-15 16:59:23,410 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:59:23,581 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/shift HTTP/11" 200 4
+2024-08-15 16:59:23,582 - DEBUG - CheckboxSettings.py:109 - Статус відповіді: 200
+2024-08-15 16:59:23,582 - DEBUG - CheckboxSettings.py:110 - Заголовки відповіді: {'Date': 'Thu, 15 Aug 2024 13:59:34 GMT', 'Content-Type': 'application/json', 'Content-Length': '4', 'Connection': 'keep-alive', 'x-request-id': 'eadd1a7ae240ea940b92fc762e665902', 'x-correlation-id': '8da4061cbfc24ba2ad9e77e4270fceab', 'strict-transport-security': 'max-age=31536000; includeSubDomains', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=cVieASkHdcERD6bSCsIW22wUTYfGNK6AX9DkBOjYlUhdf36PdoI2%2BeDzm6SiRLM2UsjUJIgq35EMA%2FWzUOl47dUdMSAnXgikyG%2FhcVmGMYzB7Sg5LnShXFeS03jQEd8qjMA%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '8b39b4b98b40c05b-WAW', 'alt-svc': 'h3=":443"; ma=86400'}
+2024-08-15 16:59:23,582 - DEBUG - CheckboxSettings.py:111 - Відповідь API (текст): null
+2024-08-15 16:59:23,583 - ERROR - CheckboxSettings.py:128 - Отримані дані не є правильним JSON-об'єктом

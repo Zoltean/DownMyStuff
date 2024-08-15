@@ -1,0 +1,6 @@
+2024-08-15 16:36:23,488 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:36:23,962 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
+2024-08-15 16:36:23,968 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:36:24,151 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/tax HTTP/11" 200 None
+2024-08-15 16:36:26,964 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:36:27,135 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/shift HTTP/11" 200 4

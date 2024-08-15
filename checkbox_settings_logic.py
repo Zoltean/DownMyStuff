@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QMessageBox
 class CheckboxSettingsLogic:
     def __init__(self, dialog):
         self.dialog = dialog
+        self.access_token = None
 
     def load_settings_from_db(self):
         """Завантажує налаштування з бази даних і заповнює поля форми."""
@@ -12,7 +13,8 @@ class CheckboxSettingsLogic:
             conn = sqlite3.connect('database.db')
             cursor = conn.cursor()
 
-            cursor.execute('SELECT license_key, cashier_login, cashier_password, access_token FROM checkbox_settings ORDER BY id DESC LIMIT 1')
+            cursor.execute(
+                'SELECT license_key, cashier_login, cashier_password, access_token FROM checkbox_settings ORDER BY id DESC LIMIT 1')
             row = cursor.fetchone()
 
             if row:
@@ -21,8 +23,12 @@ class CheckboxSettingsLogic:
                 self.dialog.cashier_login.setText(cashier_login)
                 self.dialog.cashier_password.setText(cashier_password)
 
-                self.get_cashier_info(access_token)
-                self.get_taxes_info(access_token)
+                self.access_token = access_token  # Збережіть токен у властивості
+
+                # Передайте токен у методи, які його потребують
+                if self.access_token:
+                    self.get_cashier_info(self.access_token)
+                    self.get_taxes_info(self.access_token)
 
             conn.close()
         except sqlite3.Error as e:
@@ -56,6 +62,8 @@ class CheckboxSettingsLogic:
             if response.status_code == 200:
                 QMessageBox.information(self.dialog, "Авторизація успішна", f"Токен доступу: {access_token}")
                 self.save_settings_to_db(license_key, login, password, access_token)
+
+                # Передайте токен у методи
                 self.get_cashier_info(access_token)
                 self.get_taxes_info(access_token)
             else:

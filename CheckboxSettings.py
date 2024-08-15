@@ -1,8 +1,12 @@
 import sys
+import logging
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QFormLayout, QPushButton, QLineEdit, QLabel, QTextEdit, QApplication
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QRect
 from checkbox_settings_logic import CheckboxSettingsLogic
+from get_curr_shift import get_shift_info  # Імпортуємо нову функцію
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class CheckboxSettingsDialog(QDialog):
     def __init__(self, parent=None):
@@ -46,7 +50,14 @@ class CheckboxSettingsDialog(QDialog):
         self.authenticate_button.clicked.connect(self.authenticate)
         layout.addWidget(self.authenticate_button)
 
-        # Текстовий блок для інформації про касира та податкові ставки
+        # Кнопка "Отримати зміну"
+        self.get_shift_button = QPushButton("Отримати зміну")
+        self.get_shift_button.setFont(QFont("Arial", 10))
+        self.get_shift_button.setFixedSize(150, 30)
+        self.get_shift_button.clicked.connect(self.handle_get_shift_info)
+        layout.addWidget(self.get_shift_button)
+
+        # Текстовий блок для інформації про зміну
         self.info_text = QTextEdit()
         self.info_text.setFont(QFont("Arial", 10))
         self.info_text.setReadOnly(True)
@@ -67,6 +78,17 @@ class CheckboxSettingsDialog(QDialog):
     def authenticate(self):
         """Виклик функції авторизації з логіки"""
         self.logic.authenticate()
+
+    def handle_get_shift_info(self):
+        """Обробка натискання кнопки 'Отримати зміну'"""
+        api_url = self.api_url.text()
+        access_token = self.logic.access_token
+        if not access_token:
+            self.info_text.setHtml("<font color='red'>Токен доступу відсутній. Спочатку авторизуйтесь.</font>")
+            return
+
+        # Виклик функції з `get_curr_shift.py`
+        get_shift_info(api_url, access_token, self.info_text)
 
     def center_on_parent(self, parent):
         """Центрує вікно на батьківському вікні."""

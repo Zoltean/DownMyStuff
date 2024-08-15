@@ -2,111 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f3730f4-42c0-4f61-ac06-e26335cd5958" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api_checkbox.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api_novaposhta.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CheckboxSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CheckboxSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkbox_settings_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/checkbox_settings_logic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/database.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/CheckboxSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CheckboxSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/IEContacts.py" beforeDir="false" afterPath="$PROJECT_DIR$/IEContacts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/IEGoods.py" beforeDir="false" afterPath="$PROJECT_DIR$/IEGoods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/add_contact.py" beforeDir="false" afterPath="$PROJECT_DIR$/add_contact.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/add_goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/add_goods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/contacts.py" beforeDir="false" afterPath="$PROJECT_DIR$/contacts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/edit_contact.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_contact.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/edit_goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit_goods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/goods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/license_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/license_dialog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/statistics_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/statistics_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/your_database.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_19-47-18.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_19-48-41.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-03-26.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-05-48.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-07-02.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-09-40.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-10-14.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-28-29.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-07_20-33-24.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-08-26.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-15-18.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-16-17.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-19-04.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-19-34.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-21-46.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-25-55.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-26-02.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-26-44.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-34-51.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-41-24.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-42-42.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_09-49-09.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_10-36-58.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_10-40-35.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-08_18-58-39.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-35-54.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-39-39.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-43-30.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-46-30.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-48-01.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-49-53.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-51-23.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-58-15.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_10-59-27.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-01-10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-10-42.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-14-17.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-16-52.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-18-35.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-20-51.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-24-41.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-27-25.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-29-45.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-30-58.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-32-12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-34-10.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-38-27.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-41-51.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-43-32.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-44-25.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-45-00.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-54-11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_11-57-34.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_12-11-57.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_12-13-33.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_12-17-12.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_12-39-47.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_12-57-05.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-00-33.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-01-22.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-02-24.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-03-01.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-08-33.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-09-47.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-31-26.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-33-33.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-36-11.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-36-42.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-45-42.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-49-21.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-50-15.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-52-37.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-52-58.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_13-56-21.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_14-02-58.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/app_2024-08-15_14-10-33.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/excel_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/product_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/user_service.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_management/auth.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,9 +90,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DownMyStuff$contacts.coverage" NAME="contacts Coverage Results" MODIFIED="1723104954430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
     <SUITE FILE_PATH="coverage/DownMyStuff$license_dialog.coverage" NAME="license_dialog Coverage Results" MODIFIED="1722794966129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
-    <SUITE FILE_PATH="coverage/DownMyStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1723727015228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DownMyStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1723735304906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DownMyStuff$Contacts.coverage" NAME="Contacts Coverage Results" MODIFIED="1723050577049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
-    <SUITE FILE_PATH="coverage/DownMyStuff$CheckboxSettings.coverage" NAME="CheckboxSettings Coverage Results" MODIFIED="1723723884207" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
+    <SUITE FILE_PATH="coverage/DownMyStuff$CheckboxSettings.coverage" NAME="CheckboxSettings Coverage Results" MODIFIED="1723728306244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DownMyStuff$edit_contact.coverage" NAME="edit_contact Coverage Results" MODIFIED="1723050416844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
     <SUITE FILE_PATH="coverage/DownMyStuff$edit_goods.coverage" NAME="edit_goods Coverage Results" MODIFIED="1723104975508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/gui" />
     <SUITE FILE_PATH="coverage/DownMyStuff$requirements.coverage" NAME="requirements Coverage Results" MODIFIED="1722756836459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -1,0 +1,26 @@
+2024-08-15 16:44:37,200 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:44:37,385 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
+2024-08-15 16:44:37,387 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:44:37,568 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/tax HTTP/11" 200 None
+2024-08-15 16:44:55,927 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:44:56,281 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "POST /api/v1/cashier/signin HTTP/11" 200 None
+2024-08-15 16:44:59,069 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:44:59,317 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
+2024-08-15 16:44:59,319 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:44:59,490 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/tax HTTP/11" 200 None
+2024-08-15 16:45:02,822 - DEBUG - CheckboxSettings.py:101 - Запит до API: https://api.checkbox.ua/api/v1/cashier/shift
+2024-08-15 16:45:02,822 - DEBUG - CheckboxSettings.py:102 - Заголовки запиту: {'accept': 'application/json', 'X-Client-Name': 'Test-Client-Name', 'X-Client-Version': 'Test-Client-Version', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiQVBJIiwianRpIjoiMDgzM2NhMGItZTg5OC00M2VhLWJmMDQtNjYxZGM4MmMzZDBkIiwic3ViIjoiZDI2ZTRkNWUtYjcyOC00OGM5LTkxNGQtMTgyN2NkMDIwODlhIiwibmJmIjoxNzIzNzI3Njk1LCJpYXQiOjE3MjM3Mjc2OTV9.XCGkiOiWMIVB62CpcaLEmy5Yi28L_vH5oo3aWt-RWMI'}
+2024-08-15 16:45:02,823 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:45:03,006 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/shift HTTP/11" 200 4
+2024-08-15 16:45:03,006 - DEBUG - CheckboxSettings.py:110 - Відповідь API: null
+2024-08-15 16:45:44,863 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:45:45,159 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "POST /api/v1/cashier/signin HTTP/11" 200 None
+2024-08-15 16:45:50,140 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:45:50,298 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/me HTTP/11" 200 None
+2024-08-15 16:45:50,299 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:45:50,461 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/tax HTTP/11" 200 None
+2024-08-15 16:45:52,894 - DEBUG - CheckboxSettings.py:101 - Запит до API: https://api.checkbox.ua/api/v1/cashier/shift
+2024-08-15 16:45:52,894 - DEBUG - CheckboxSettings.py:102 - Заголовки запиту: {'accept': 'application/json', 'X-Client-Name': 'Test-Client-Name', 'X-Client-Version': 'Test-Client-Version', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiQVBJIiwianRpIjoiMDgzM2NhMGItZTg5OC00M2VhLWJmMDQtNjYxZGM4MmMzZDBkIiwic3ViIjoiZDI2ZTRkNWUtYjcyOC00OGM5LTkxNGQtMTgyN2NkMDIwODlhIiwibmJmIjoxNzIzNzI3Njk1LCJpYXQiOjE3MjM3Mjc2OTV9.XCGkiOiWMIVB62CpcaLEmy5Yi28L_vH5oo3aWt-RWMI'}
+2024-08-15 16:45:52,895 - DEBUG - connectionpool.py:1051 - Starting new HTTPS connection (1): api.checkbox.ua:443
+2024-08-15 16:45:53,067 - DEBUG - connectionpool.py:546 - https://api.checkbox.ua:443 "GET /api/v1/cashier/shift HTTP/11" 200 4
+2024-08-15 16:45:53,067 - DEBUG - CheckboxSettings.py:110 - Відповідь API: null
