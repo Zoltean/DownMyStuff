@@ -20,12 +20,11 @@ class IEContacts:
                 # Виведення списку стовпців для перевірки
                 print("Стовпці у файлі Excel:", df.columns.tolist())
 
-                # Перевірка наявності стовпця 'phone_number'
-                if 'Номер телефону' not in df.columns:
-                    raise ValueError("Стовпець 'Номер телефону' відсутній у файлі Excel.")
-
-                if not self.validate_excel_data(df):
-                    QMessageBox.warning(self.parent, "Попередження", "Файл містить потенційно небезпечні дані. Імпорт скасовано.")
+                # Валідація Excel даних
+                validation_errors = self.validate_excel_data(df)
+                if validation_errors:
+                    error_message = "\n".join(validation_errors)
+                    QMessageBox.warning(self.parent, "Помилка валідації", f"Файл містить помилки:\n{error_message}\nІмпорт скасовано.")
                     return
 
                 # Форматування телефонних номерів
@@ -51,8 +50,6 @@ class IEContacts:
 
                 self.parent.load_data()
                 QMessageBox.information(self.parent, "Успіх", "Контакти успішно імпортовані.")
-            except ValueError as ve:
-                QMessageBox.critical(self.parent, "Помилка", f"Помилка даних: {ve}")
             except Exception as e:
                 QMessageBox.critical(self.parent, "Помилка", f"Помилка імпорту: {e}")
 
@@ -79,8 +76,26 @@ class IEContacts:
                 QMessageBox.critical(self.parent, "Помилка", f"Помилка експорту: {e}")
 
     def validate_excel_data(self, df):
-        # Додайте свою перевірку даних тут
-        return True
+        errors = []
+
+        # Перевірка наявності обов'язкових стовпців, окрім 'Email'
+        required_columns = ['Прізвище', 'Ім\'я', 'По-батькові', 'Номер телефону', 'Місто', 'Номер відділення']
+        missing_columns = [col for col in required_columns if col not in df.columns]
+        if missing_columns:
+            errors.append(f"Відсутні стовпці: {', '.join(missing_columns)}")
+
+        # Перевірка формату телефонних номерів
+        if 'Номер телефону' in df.columns:
+            phone_numbers = df['Номер телефону']
+            for idx, number in phone_numbers.items():
+                if not self.is_valid_phone_number(number):
+                    errors.append(f"Некоректний телефонний номер у рядку {idx + 1}: {number}")
+
+        return errors
+
+    def is_valid_phone_number(self, number):
+        digits = re.sub(r'\D', '', number)
+        return len(digits) in [9, 12] and (digits.startswith('380') or len(digits) == 9)
 
     def format_phone_number(self, number):
         # Видаляємо всі символи, крім цифр

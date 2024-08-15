@@ -18,7 +18,6 @@ class ContactsDialog(QDialog):
         self.ie_contacts = IEContacts(self)
 
         self.add_button = QPushButton("Додати")
-        self.search_button = QPushButton("Шукати")
         self.reset_search_button = QPushButton("Зкинути фільтр")
         self.import_button = QPushButton("Імпорт з Excel")
         self.export_button = QPushButton("Експорт в Excel")
@@ -28,7 +27,7 @@ class ContactsDialog(QDialog):
         self.search_input.textChanged.connect(self.search_contact)
 
         font = QFont("Arial", 10)
-        for button in [self.add_button, self.search_button, self.reset_search_button, self.import_button, self.export_button]:
+        for button in [self.add_button, self.reset_search_button, self.import_button, self.export_button]:
             button.setFont(font)
             button.setFixedSize(110, 30)
             button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -41,7 +40,6 @@ class ContactsDialog(QDialog):
 
         search_layout = QHBoxLayout()
         search_layout.addWidget(self.search_input)
-        search_layout.addWidget(self.search_button)
         search_layout.addWidget(self.reset_search_button)
 
         right_layout = QVBoxLayout()

@@ -20,7 +20,7 @@ class EditGoodsDialog(QDialog):
 
         self.form_layout.addRow("Назва", self.name_input)
         self.form_layout.addRow("Група", self.group_name_input)
-        self.form_layout.addRow("Податок", self.tax_input)
+        self.form_layout.addRow("Податкова ставка", self.tax_input)
         self.form_layout.addRow("UKTZED", self.UKTZED_input)
         self.form_layout.addRow("Ціна", self.price_input)
         self.form_layout.addRow("Кількість", self.quantity_input)
@@ -77,7 +77,7 @@ class EditGoodsDialog(QDialog):
                     self.name_input.setText(row[0])
                     self.group_name_input.setText(row[1])
                     self.tax_input.setText(str(row[2]))  # tax as int
-                    self.UKTZED_input.setText(row[3])
+                    self.UKTZED_input.setText(str(row[3]))  # UKTZED as int
                     self.price_input.setText(str(row[4]))
                     self.quantity_input.setText(str(row[5]))
                 else:
@@ -106,6 +106,7 @@ class EditGoodsDialog(QDialog):
 
         try:
             tax = int(tax) if tax else 0  # Перетворення tax в int
+            UKTZED = int(UKTZED) if UKTZED else 0  # Перетворення UKTZED в int
             price = float(price)
             quantity = int(quantity)
         except ValueError:

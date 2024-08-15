@@ -2,12 +2,11 @@ import sqlite3
 import os
 import pandas as pd
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QPushButton, QHBoxLayout, QTableWidget, QTableWidgetItem,
-                             QFileDialog, QMessageBox, QSizePolicy, QLineEdit)
+                             QMessageBox, QSizePolicy, QLineEdit)
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
 from .add_goods import AddGoodsDialog
 from .edit_goods import EditGoodsDialog
-
+from .IEGoods import IEGoods
 
 class GoodsDialog(QDialog):
     def __init__(self, parent=None):
@@ -46,7 +45,8 @@ class GoodsDialog(QDialog):
         right_layout.addLayout(search_layout)
         self.table = QTableWidget()
         self.table.setColumnCount(7)  # Оновлено на 7 колонок
-        self.table.setHorizontalHeaderLabels(["ID", "Назва", "Група", "Податок", "UKTZED", "Ціна", "Кількість"])
+        self.table.setHorizontalHeaderLabels(
+            ["ID", "Назва", "Група", "Податкова ставка", "UKTZED", "Ціна", "Кількість"])
         self.table.verticalHeader().setVisible(False)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.table.setSelectionMode(QTableWidget.NoSelection)
@@ -75,6 +75,9 @@ class GoodsDialog(QDialog):
             cp = qr.center()
             self.move(cp - self.rect().center())
 
+        # Ініціалізація IEGoods
+        self.ie_goods = IEGoods(self)
+
     def init_db(self):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         db_path = os.path.join(BASE_DIR, 'database.db')
@@ -94,9 +97,9 @@ class GoodsDialog(QDialog):
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         group_name TEXT,
-                        tax INTEGER,
-                        UKTZED TEXT,
-                        price REAL,
+                        tax INTEGER NOT NULL,
+                        UKTZED INTEGER,
+                        price REAL NOT NULL,
                         quantity INTEGER
                     )
                 """)
@@ -154,71 +157,13 @@ class GoodsDialog(QDialog):
         self.load_data()
 
     def import_goods(self):
-        options = QFileDialog.Options()
-        file_name, _ = QFileDialog.getOpenFileName(self, "Імпортувати з Excel", "",
-                                                   "Excel Files (*.xlsx);;All Files (*)", options=options)
-        if file_name:
-            try:
-                df = pd.read_excel(file_name)
+        self.ie_goods.import_goods()
 
-                if not self.validate_excel_data(df):
-                    QMessageBox.warning(self, "Попередження",
-                                        "Файл містить потенційно небезпечні дані. Імпорт скасовано.")
-                    return
-
-                df.rename(columns={
-                    'Назва': 'name',
-                    'Група': 'group_name',
-                    'Податок': 'tax',
-                    'UKTZED': 'UKTZED',
-                    'Ціна': 'price',
-                    'Кількість': 'quantity'
-                }, inplace=True)
-
-                if 'id' in df.columns:
-                    df.drop(columns=['id'], inplace=True)
-
-                # Переконайтеся, що tax конвертується в int
-                if 'tax' in df.columns:
-                    df['tax'] = pd.to_numeric(df['tax'], errors='coerce').fillna(0).astype(int)
-
-                with sqlite3.connect(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                                  'database.db')) as connection:
-                    df.to_sql('goods', connection, if_exists='append', index=False, method='multi')
-
-                self.load_data()
-                QMessageBox.information(self, "Успіх", "Товари успішно імпортовані.")
-            except Exception as e:
-                QMessageBox.critical(self, "Помилка", f"Помилка імпорту: {e}")
-
-    def validate_excel_data(self, df):
-        return True
+    def export_goods(self):
+        self.ie_goods.export_goods()
 
     def open_edit_goods_dialog(self, row, column):
         goods_id = self.table.item(row, 0).text()
         dialog = EditGoodsDialog(self, goods_id)
         if dialog.exec_() == QDialog.Accepted:
             self.load_data()
-
-    def export_goods(self):
-        options = QFileDialog.Options()
-        file_name, _ = QFileDialog.getSaveFileName(self, "Експортувати в Excel", "",
-                                                   "Excel Files (*.xlsx);;All Files (*)", options=options)
-        if file_name:
-            try:
-                with sqlite3.connect(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                                  'database.db')) as connection:
-                    df = pd.read_sql("SELECT name, group_name, tax, UKTZED, price, quantity FROM goods",
-                                     connection)
-                    df.rename(columns={
-                        'name': 'Назва',
-                        'group_name': 'Група',
-                        'tax': 'Податок',
-                        'UKTZED': 'UKTZED',
-                        'price': 'Ціна',
-                        'quantity': 'Кількість'
-                    }, inplace=True)
-                    df.to_excel(file_name, index=False)
-                QMessageBox.information(self, "Успіх", "Товари успішно експортовані.")
-            except Exception as e:
-                QMessageBox.critical(self, "Помилка", f"Помилка експорту: {e}")
