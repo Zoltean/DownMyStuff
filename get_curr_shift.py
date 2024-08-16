@@ -2,8 +2,8 @@ import logging
 import json
 import requests
 
-def get_shift_info(api_url, access_token, info_text):
-    """Отримання інформації про останню зміну і оновлення текстового блоку."""
+def get_shift_info(api_url, access_token):
+    """Отримання інформації про останню зміну."""
     endpoint = f"{api_url}/api/v1/shifts"
     params = {
         'statuses[]': ['OPENED', 'CLOSED'],  # Включити статуси, які можуть бути актуальними
@@ -13,8 +13,8 @@ def get_shift_info(api_url, access_token, info_text):
 
     headers = {
         'accept': 'application/json',
-        'X-Client-Name': 'Test-Client-Name',
-        'X-Client-Version': 'Test-Client-Version',
+        'X-Client-Name': 'DownMyStuff',
+        'X-Client-Version': 'v0.0.1',
         'Authorization': f'Bearer {access_token}'
     }
 
@@ -34,29 +34,25 @@ def get_shift_info(api_url, access_token, info_text):
         # Перевірка наявності даних у відповіді
         response_text = response.text
         if not response_text.strip():  # Перевірка, чи відповідь не є пустою
-            info_text.setHtml("<font color='red'>Сервер повернув пусту відповідь.</font>")
             logging.error("Сервер повернув пусту відповідь.")
-            return
+            raise Exception("Сервер повернув пусту відповідь.")
 
         logging.debug(f"Відповідь API (текст): {response_text}")
 
         try:
             shift_data = response.json()  # Спроба перетворення в JSON
         except json.JSONDecodeError:
-            info_text.setHtml("<font color='red'>Відповідь сервера не є правильним JSON.</font>")
             logging.error("Відповідь сервера не є правильним JSON.")
-            return
+            raise Exception("Відповідь сервера не є правильним JSON.")
 
         if not isinstance(shift_data, dict):
-            info_text.setHtml("<font color='red'>Наразі інформації про зміни немає.</font>")
-            logging.error("Отримані дані не є правильним JSON-об'єктом")
-            return
+            logging.error("Отримані дані не є правильним JSON-об'єктом.")
+            raise Exception("Отримані дані не є правильним JSON-об'єктом.")
 
         results = shift_data.get('results', [])
         if not results:
-            info_text.setHtml("<font color='red'>Наразі інформації про зміни немає.</font>")
-            logging.error("Немає результатів у відповіді")
-            return
+            logging.error("Немає результатів у відповіді.")
+            raise Exception("Немає результатів у відповіді.")
 
         # Отримання останньої зміни
         last_shift = results[0]
@@ -70,16 +66,19 @@ def get_shift_info(api_url, access_token, info_text):
         status_text = {
             'OPENED': 'Відкрита',
             'CLOSED': 'Закрита'
-        }.get(status, 'ПОМИЛКА - зверніться в підтримку Чекбокс')
+        }.get(status, 'ПОМИЛКА - Спробуйте оновити статус зміни через хвилину, якщо і надалі буде помилка, зверніться до підтримки Чекбокс')
 
-        info_text.setHtml(f"<b>Статус:</b> <font color='{status_color}'><b>{status_text}</b></font><br>"
-                           f"<b>ID:</b> {last_shift.get('id', 'N/A')}<br>"
-                           f"<b>Serial:</b> {last_shift.get('serial', 'N/A')}<br>"
-                           f"<b>Відкриття:</b> {last_shift.get('opened_at', 'N/A')}<br>"
-                           f"<b>Закриття:</b> {last_shift.get('closed_at', 'N/A')}<br>"
-                           f"<b>Аварійне закриття:</b> {last_shift.get('emergency_close', 'N/A')}<br>"
-                           f"<b>Деталі аварійного закриття:</b> {last_shift.get('emergency_close_details', 'N/A')}<br>")
+        return {
+            'status_text': status_text,
+            'status_color': status_color,
+            'id': last_shift.get('id', 'N/A'),
+            'serial': last_shift.get('serial', 'N/A'),
+            'opened_at': last_shift.get('opened_at', 'N/A'),
+            'closed_at': last_shift.get('closed_at', 'N/A'),
+            'emergency_close': last_shift.get('emergency_close', 'N/A'),
+            'emergency_close_details': last_shift.get('emergency_close_details', 'N/A')
+        }
 
     except requests.RequestException as e:
         logging.error(f"Не вдалося здійснити запит: {e}")
-        info_text.setHtml(f"<font color='red'>Не вдалося здійснити запит: {e}</font>")
+        raise Exception(f"Не вдалося здійснити запит: {e}")

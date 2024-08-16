@@ -1,10 +1,13 @@
 import sys
 import logging
+import time
+
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QFormLayout, QPushButton, QLineEdit, QLabel, QTextEdit, QApplication
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QRect
 from checkbox_settings_logic import CheckboxSettingsLogic
-from get_curr_shift import get_shift_info  # Імпортуємо нову функцію
+from get_curr_shift import get_shift_info
+from shift_management import create_shift, close_shift, get_current_shift_id
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -12,7 +15,7 @@ class CheckboxSettingsDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Налаштування Checkbox")
-        self.setGeometry(0, 0, 600, 500)  # Збільшені розміри для додаткових елементів
+        self.setGeometry(0, 0, 400, 600)  # Збільшені розміри для додаткових елементів
 
         # Створення компонентів інтерфейсу
         layout = QVBoxLayout()
@@ -51,11 +54,25 @@ class CheckboxSettingsDialog(QDialog):
         layout.addWidget(self.authenticate_button)
 
         # Кнопка "Отримати зміну"
-        self.get_shift_button = QPushButton("Отримати зміну")
+        self.get_shift_button = QPushButton("Статус зміни")
         self.get_shift_button.setFont(QFont("Arial", 10))
         self.get_shift_button.setFixedSize(150, 30)
         self.get_shift_button.clicked.connect(self.handle_get_shift_info)
         layout.addWidget(self.get_shift_button)
+
+        # Кнопка "Відкрити зміну"
+        self.open_shift_button = QPushButton("Відкрити зміну")
+        self.open_shift_button.setFont(QFont("Arial", 10))
+        self.open_shift_button.setFixedSize(150, 30)
+        self.open_shift_button.clicked.connect(self.handle_open_shift)
+        layout.addWidget(self.open_shift_button)
+
+        # Кнопка "Закрити зміну"
+        self.close_shift_button = QPushButton("Закрити зміну")
+        self.close_shift_button.setFont(QFont("Arial", 10))
+        self.close_shift_button.setFixedSize(150, 30)
+        self.close_shift_button.clicked.connect(self.handle_close_shift)
+        layout.addWidget(self.close_shift_button)
 
         # Текстовий блок для інформації про зміну
         self.info_text = QTextEdit()
@@ -87,8 +104,59 @@ class CheckboxSettingsDialog(QDialog):
             self.info_text.setHtml("<font color='red'>Токен доступу відсутній. Спочатку авторизуйтесь.</font>")
             return
 
-        # Виклик функції з `get_curr_shift.py`
-        get_shift_info(api_url, access_token, self.info_text)
+        try:
+            shift_info = get_shift_info(api_url, access_token)
+            self.info_text.setHtml(f"<b>Статус:</b> <font color='{shift_info['status_color']}'><b>{shift_info['status_text']}</b></font><br>"
+                                   f"<b>ID:</b> {shift_info['id']}<br>"
+                                   f"<b>Serial:</b> {shift_info['serial']}<br>"
+                                   f"<b>Відкриття:</b> {shift_info['opened_at']}<br>"
+                                   f"<b>Закриття:</b> {shift_info['closed_at']}<br>"
+                                   f"<b>Аварійне закриття:</b> {shift_info['emergency_close']}<br>"
+                                   f"<b>Деталі аварійного закриття:</b> {shift_info['emergency_close_details']}<br>")
+        except Exception as e:
+            self.info_text.setHtml(f"<font color='red'>{str(e)}</font>")
+
+    def handle_open_shift(self):
+        """Обробка натискання кнопки 'Відкрити зміну'"""
+        api_url = self.api_url.text()
+        license_key = self.license_key.text()
+        access_token = self.logic.access_token
+        if not access_token:
+            self.info_text.setHtml("<font color='red'>Токен доступу відсутній. Спочатку авторизуйтесь.</font>")
+            return
+
+        try:
+            shift_id = create_shift(api_url, access_token, license_key)
+            if shift_id:
+                self.info_text.setHtml(f"<font color='green'>Зміну створено. ID: {shift_id}</font>")
+                time.sleep(2)
+                self.handle_get_shift_info()
+        except Exception as e:
+            self.info_text.setHtml(f"<font color='red'>{str(e)}</font>")
+            time.sleep(2)
+            self.handle_get_shift_info()
+
+    def handle_close_shift(self):
+        """Обробка натискання кнопки 'Закрити зміну'"""
+        api_url = self.api_url.text()
+        access_token = self.logic.access_token
+        if not access_token:
+            self.info_text.setHtml("<font color='red'>Токен доступу відсутній. Спочатку авторизуйтесь.</font>")
+            return
+
+        try:
+            shift_id = get_current_shift_id(api_url, access_token)
+            if shift_id:
+                close_shift(api_url, access_token, shift_id, self.license_key.text())
+                self.info_text.setHtml(f"<font color='green'>Зміну закрито. ID: {shift_id}</font>")
+                time.sleep(2)
+                self.handle_get_shift_info()
+            else:
+                self.info_text.setHtml("<font color='red'>Не вдалося знайти поточну зміну.</font>")
+        except Exception as e:
+            self.info_text.setHtml(f"<font color='red'>{str(e)}</font>")
+            time.sleep(2)
+            self.handle_get_shift_info()
 
     def center_on_parent(self, parent):
         """Центрує вікно на батьківському вікні."""

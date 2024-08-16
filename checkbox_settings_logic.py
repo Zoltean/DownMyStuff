@@ -1,4 +1,7 @@
 import sqlite3
+import logging
+import time
+import json
 import requests
 from PyQt5.QtWidgets import QMessageBox
 
@@ -27,8 +30,8 @@ class CheckboxSettingsLogic:
 
                 # Передайте токен у методи, які його потребують
                 if self.access_token:
-                    self.get_cashier_info(self.access_token)
-                    self.get_taxes_info(self.access_token)
+                    self.get_cashier_info()
+                    self.get_taxes_info()
 
             conn.close()
         except sqlite3.Error as e:
@@ -42,8 +45,8 @@ class CheckboxSettingsLogic:
 
         headers = {
             'accept': 'application/json',
-            'X-Client-Name': 'Test-Client-Name',
-            'X-Client-Version': 'Test-Client-Version',
+            'X-Client-Name': 'DownMyStuff',
+            'X-Client-Version': 'v0.0.1',
             'Content-Type': 'application/json'
         }
 
@@ -64,8 +67,9 @@ class CheckboxSettingsLogic:
                 self.save_settings_to_db(license_key, login, password, access_token)
 
                 # Передайте токен у методи
-                self.get_cashier_info(access_token)
-                self.get_taxes_info(access_token)
+                self.access_token = access_token
+                self.get_cashier_info()
+                self.get_taxes_info()
             else:
                 QMessageBox.warning(self.dialog, "Помилка авторизації", f"Помилка: {response.text}")
 
@@ -101,15 +105,19 @@ class CheckboxSettingsLogic:
         except sqlite3.Error as e:
             QMessageBox.critical(self.dialog, "Помилка", f"Не вдалося зберегти налаштування в базі даних: {e}")
 
-    def get_cashier_info(self, access_token):
+    def get_cashier_info(self):
+        time.sleep(1)
         """Отримує інформацію про касира і оновлює текстовий блок"""
+        if not self.access_token:
+            return
+
         api_url = self.dialog.api_url.text()
 
         headers = {
             'accept': 'application/json',
             'X-Client-Name': 'Test-Client-Name',
             'X-Client-Version': 'Test-Client-Version',
-            'Authorization': f'Bearer {access_token}'
+            'Authorization': f'Bearer {self.access_token}'
         }
 
         try:
@@ -120,12 +128,15 @@ class CheckboxSettingsLogic:
 
             organization = cashier_data.get('organization', {})
             info = (
-                f"<b>Назва організації:</b> <font color='green'><b>{organization.get('title', 'N/A')}</b></font><br>"
-                f"<b>ЕДРПОУ:</b> <font color='green'><b>{organization.get('edrpou', 'N/A')}</b></font><br>"
-                f"<b>Податкові ставки:</b> <font color='green'><b>{organization.get('tax_number', 'N/A')}</b></font><br>"
-                f"<b>Ім'я касира:</b> <font color='green'><b>{cashier_data.get('full_name', 'N/A')}</b></font><br>"
-                f"<b>Срок дії ключа:</b> <font color='green'><b>{cashier_data.get('certificate_end', 'N/A')}</b></font><br>"
-                "<br>================<br>"
+                "<div align='center'>"
+                "<b>====Організація====</b><br>"
+                f"Назва організації: <font color='green'><b>{organization.get('title', 'N/A')}</b></font><br>"
+                f"ЕДРПОУ: <font color='green'><b>{organization.get('edrpou', 'N/A')}</b></font><br>"
+                f"Податкові ставки: <font color='green'><b>{organization.get('tax_number', 'N/A')}</b></font><br>"
+                f"Ім'я касира: <font color='green'><b>{cashier_data.get('full_name', 'N/A')}</b></font><br>"
+                f"Срок дії ключа: <font color='green'><b>{cashier_data.get('certificate_end', 'N/A')}</b></font><br>"
+                "<br><b>=====Податок=====</b>"
+                "</div>"
             )
 
             self.dialog.info_text.setHtml(info)
@@ -133,15 +144,19 @@ class CheckboxSettingsLogic:
         except requests.RequestException as e:
             QMessageBox.critical(self.dialog, "Помилка", f"Не вдалося отримати інформацію про касира: {e}")
 
-    def get_taxes_info(self, access_token):
+    def get_taxes_info(self):
+        time.sleep(1)
         """Отримує інформацію про податкові ставки і оновлює текстовий блок"""
+        if not self.access_token:
+            return
+
         api_url = self.dialog.api_url.text()
 
         headers = {
             'accept': 'application/json',
             'X-Client-Name': 'Test-Client-Name',
             'X-Client-Version': 'Test-Client-Version',
-            'Authorization': f'Bearer {access_token}'
+            'Authorization': f'Bearer {self.access_token}'
         }
 
         try:
@@ -153,14 +168,16 @@ class CheckboxSettingsLogic:
             taxes_info = ""
             for tax in taxes_data:
                 taxes_info += (
-                    f"<b>Код:</b> <font color='green'><b>{tax.get('code', 'N/A')}</b></font><br>"
-                    f"<b>Назва:</b> <font color='green'><b>{tax.get('label', 'N/A')}</b></font><br>"
-                    f"<b>Літера:</b> <font color='green'><b>{tax.get('symbol', 'N/A')}</b></font><br>"
-                    f"<b>ПДВ:</b> <font color='green'><b>{tax.get('rate', 0)}%</b></font><br>"
-                    f"<b>Акцизний збір:</b> <font color='green'><b>{tax.get('extra_rate', 0)}%</b></font><br>"
-                    f"<b>Створено:</b> <font color='green'><b>{tax.get('created_at', 'N/A')}</b></font><br>"
-                    f"<b>Оновлено:</b> <font color='green'><b>{tax.get('updated_at', 'N/A')}</b></font><br>"
+                    "<div align='center'>"
+                    f"Код: <font color='green'><b>{tax.get('code', 'N/A')}</b></font><br>"
+                    f"Назва: <font color='green'><b>{tax.get('label', 'N/A')}</b></font><br>"
+                    f"Літера: <font color='green'><b>{tax.get('symbol', 'N/A')}</b></font><br>"
+                    f"ПДВ: <font color='green'><b>{tax.get('rate', 0)}%</b></font><br>"
+                    f"Акцизний збір: <font color='green'><b>{tax.get('extra_rate', 0)}%</b></font><br>"
+                    f"Створено: <font color='green'><b>{tax.get('created_at', 'N/A')}</b></font><br>"
+                    f"Оновлено: <font color='green'><b>{tax.get('updated_at', 'N/A')}</b></font><br>"
                     "<br>================<br>"
+                    "</div>"
                 )
 
             self.dialog.info_text.append(taxes_info)
